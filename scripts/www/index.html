@@ -1,0 +1,2053 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>望伟水产</title>
+<style>
+:root {
+  --primary: #2e7d32;
+  --primary-light: #4caf50;
+  --primary-dark: #1b5e20;
+  --accent: #ff8f00;
+  --bg: #f5f5f0;
+  --card: #ffffff;
+  --text: #333333;
+  --text-light: #666666;
+  --border: #e0e0e0;
+  --danger: #d32f2f;
+  --success: #2e7d32;
+  --shadow: 0 2px 8px rgba(0,0,0,0.1);
+  --radius: 12px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  padding: 16px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+}
+.header h1 {
+  font-size: 20px;
+  font-weight: 600;
+}
+.header .subtitle {
+  font-size: 13px;
+  opacity: 0.85;
+  margin-top: 2px;
+}
+
+/* Navigation Tabs */
+.nav-tabs {
+  display: flex;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  position: sticky;
+  top: 60px;
+  z-index: 99;
+}
+.nav-tab {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 8px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-light);
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  position: relative;
+}
+.nav-tab.active {
+  color: var(--primary);
+  font-weight: 600;
+}
+.nav-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  right: 20%;
+  height: 3px;
+  background: var(--primary);
+  border-radius: 3px 3px 0 0;
+}
+
+/* Page sections */
+.page { display: none; padding: 16px; }
+.page.active { display: block; }
+
+/* Cards */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-title .icon {
+  width: 24px;
+  height: 24px;
+  background: var(--primary-light);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+}
+
+/* Form elements */
+.form-group {
+  margin-bottom: 14px;
+}
+.form-label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-light);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+.form-input, .form-select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--card);
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+.form-input:focus, .form-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(46,125,50,0.1);
+}
+.form-input::placeholder {
+  color: #bbb;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+.form-row .form-group {
+  flex: 1;
+}
+
+/* Checkbox */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #f8f8f5;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+}
+.checkbox-group input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+.checkbox-group label {
+  font-size: 15px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  width: 100%;
+}
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-accent {
+  background: var(--accent);
+  color: white;
+  width: 100%;
+}
+.btn-accent:hover { background: #e65100; }
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+  padding: 8px 14px;
+  font-size: 13px;
+}
+.btn-danger:hover { background: #b71c1c; }
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
+  padding: 10px 16px;
+  font-size: 14px;
+}
+.btn-outline:hover {
+  background: rgba(46,125,50,0.08);
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+/* Weight display */
+.weight-display {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+}
+.weight-display .label {
+  font-size: 14px;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+.weight-display .value {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+.weight-display .unit {
+  font-size: 16px;
+  color: var(--text-light);
+  margin-left: 4px;
+}
+
+/* Summary section */
+.summary {
+  background: linear-gradient(135deg, #fff8e1, #fff3e0);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-top: 16px;
+}
+.summary-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(255,143,0,0.3);
+}
+.summary-row:last-child {
+  border-bottom: none;
+}
+.summary-row .label {
+  font-size: 14px;
+  color: var(--text-light);
+}
+.summary-row .value {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+.summary-row.total {
+  border-top: 2px solid var(--accent);
+  margin-top: 8px;
+  padding-top: 12px;
+}
+.summary-row.total .label {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--accent);
+}
+.summary-row.total .value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--danger);
+}
+
+/* Weighing record list */
+.weigh-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+.weigh-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #f9f9f6;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border);
+}
+.weigh-item .info {
+  flex: 1;
+}
+.weigh-item .weigh-num {
+  font-size: 13px;
+  color: var(--text-light);
+}
+.weigh-item .weigh-detail {
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 2px;
+}
+.weigh-item .weigh-net {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+}
+.weigh-item .btn-remove {
+  background: none;
+  border: none;
+  color: var(--danger);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.weigh-item .btn-remove:hover {
+  background: rgba(211,47,47,0.1);
+}
+
+/* Supplier list */
+.supplier-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: var(--card);
+  border-radius: var(--radius);
+  margin-bottom: 10px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.supplier-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.supplier-item .name {
+  font-size: 16px;
+  font-weight: 600;
+}
+.supplier-item .meta {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+.supplier-item .actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Order list */
+.order-item {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--primary);
+}
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.order-header .supplier-name {
+  font-size: 16px;
+  font-weight: 600;
+}
+.order-header .date {
+  font-size: 13px;
+  color: var(--text-light);
+}
+.order-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  font-size: 14px;
+}
+.order-details .detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+.order-details .detail-label {
+  color: var(--text-light);
+}
+.order-details .detail-value {
+  font-weight: 500;
+}
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border);
+}
+.order-footer .total-amount {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--danger);
+}
+.order-footer .paid-amount {
+  font-size: 14px;
+  color: var(--success);
+  font-weight: 500;
+}
+
+/* Stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.stat-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.stat-card .stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+}
+.stat-card .stat-label {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+/* Modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.show {
+  display: flex;
+}
+.modal {
+  background: var(--card);
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 400px;
+  padding: 24px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* Search */
+.search-bar {
+  position: relative;
+  margin-bottom: 16px;
+}
+.search-bar input {
+  width: 100%;
+  padding: 10px 14px 10px 40px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  background: var(--card);
+}
+.search-bar input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+.search-bar .search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-light);
+  font-size: 16px;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-light);
+}
+.empty-state .empty-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+.empty-state .empty-text {
+  font-size: 15px;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #333;
+  color: white;
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 14px;
+  z-index: 300;
+  opacity: 0;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Filter bar */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+}
+.filter-btn {
+  padding: 6px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  background: var(--card);
+  font-size: 13px;
+  color: var(--text-light);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.filter-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  body { max-width: 480px; margin: 0 auto; }
+  .header { border-radius: 0 0 var(--radius) var(--radius); }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+
+/* Badge */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.badge-success { background: #e8f5e9; color: var(--success); }
+.badge-warning { background: #fff8e1; color: var(--accent); }
+.badge-danger { background: #ffebee; color: var(--danger); }
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 16px 0;
+}
+
+/* Tare weight input group */
+.tare-input-group {
+  display: none;
+  margin-top: 10px;
+}
+.tare-input-group.show {
+  display: block;
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1>望伟水产</h1>
+  <div class="subtitle">水产称重交易管理</div>
+</div>
+
+<!-- Navigation -->
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="switchPage('weighing')">称重记账</button>
+  <button class="nav-tab" onclick="switchPage('suppliers')">供货商</button>
+  <button class="nav-tab" onclick="switchPage('orders')">交易记录</button>
+  <button class="nav-tab" onclick="switchPage('debts')">欠款汇总</button>
+  <button class="nav-tab" onclick="switchPage('stats')">统计</button>
+</div>
+
+<!-- Page: 称重记账 -->
+<div id="page-weighing" class="page active">
+  <!-- Current orders list -->
+  <div id="currentOrdersList"></div>
+
+  <!-- New order form -->
+  <div class="card" id="newOrderForm">
+    <div class="card-title">
+      <span class="icon">➕</span>
+      <span>新建订单</span>
+    </div>
+    <div class="form-group">
+      <label class="form-label">选择供货商</label>
+      <select class="form-select" id="orderSupplier">
+        <option value="">-- 请选择供货商 --</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">商品名称</label>
+      <input type="text" class="form-input" id="orderProduct" placeholder="如：西红柿、黄瓜...">
+    </div>
+    <div class="form-group">
+      <label class="form-label">单价（元/斤）</label>
+      <input type="number" class="form-input" id="orderPrice" placeholder="0.00" step="0.01" min="0">
+    </div>
+    <div class="form-group">
+      <label class="form-label">筐重（斤，固定值，称重时可选是否扣除）</label>
+      <input type="number" class="form-input" id="orderTareWeight" placeholder="0.00" step="0.01" min="0" value="0">
+    </div>
+    <button class="btn btn-primary" onclick="createOrder()">开始称重</button>
+  </div>
+
+  <!-- Weighing section -->
+  <div id="weighingSection" style="display:none;">
+    <div class="card">
+      <div class="card-title">
+        <span class="icon">⚖️</span>
+        <span>称重记录</span>
+        <span id="weighCount" class="badge badge-success" style="margin-left:auto;">0 筐</span>
+      </div>
+
+      <div class="weight-display">
+        <div class="label">净重</div>
+        <div><span class="value" id="totalNetWeight">0.00</span><span class="unit">斤</span></div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">毛重（含筐）</label>
+          <input type="number" class="form-input" id="grossWeight" placeholder="0.00" step="0.01" min="0">
+        </div>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="deductTare">
+        <label for="deductTare">去皮（扣除筐重 <span id="tareWeightDisplay">0.00</span> 斤）</label>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="addWeighing()" style="flex:1;">添加称重</button>
+      </div>
+    </div>
+
+    <!-- Weighing list -->
+    <div class="card" id="weighListCard" style="display:none;">
+      <div class="card-title">
+        <span class="icon">📝</span>
+        <span>称重明细</span>
+      </div>
+      <div class="weigh-list" id="weighList"></div>
+    </div>
+
+    <!-- Order summary -->
+    <div class="card" id="summaryCard" style="display:none;">
+      <div class="summary">
+        <div class="summary-title">订单汇总</div>
+        <div class="summary-row">
+          <span class="label">总筐数</span>
+          <span class="value" id="summaryBaskets">0</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">总净重</span>
+          <span class="value" id="summaryWeight">0.00 斤</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">单价</span>
+          <span class="value" id="summaryPrice">0.00 元/斤</span>
+        </div>
+        <div class="summary-row total">
+          <span class="label">应收总额</span>
+          <span class="value" id="summaryTotal">¥0.00</span>
+        </div>
+        <div class="divider"></div>
+        <div class="form-group">
+          <label class="form-label">实际收款金额（元）</label>
+          <input type="number" class="form-input" id="actualPayment" placeholder="0.00" step="0.01" min="0" oninput="onPaymentInput()">
+        </div>
+        <div class="checkbox-group" id="wipeZeroGroup" style="display:none;margin-bottom:14px;" onclick="toggleWipeZero()">
+          <input type="checkbox" id="wipeZero">
+          <label for="wipeZero">差额抹零（<span id="wipeZeroAmount">¥0.00</span>）</label>
+        </div>
+        <div class="form-group" id="debtorGroup" style="display:none;">
+          <label class="form-label">欠款人姓名</label>
+          <input type="text" class="form-input" id="debtorName" placeholder="输入欠款人姓名">
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-outline" onclick="cancelOrder()" style="flex:1;">取消订单</button>
+          <button class="btn btn-accent" onclick="finishOrder()" style="flex:2;">确认收款并完成</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Page: 供货商 -->
+<div id="page-suppliers" class="page">
+  <div class="card">
+    <div class="card-title">
+      <span class="icon">🏪</span>
+      <span>供货商管理</span>
+    </div>
+    <div class="form-group">
+      <label class="form-label">供货商名称</label>
+      <input type="text" class="form-input" id="supplierName" placeholder="输入供货商名称">
+    </div>
+    <div class="form-group">
+      <label class="form-label">联系电话（选填）</label>
+      <input type="tel" class="form-input" id="supplierPhone" placeholder="输入联系电话">
+    </div>
+    <div class="form-group">
+      <label class="form-label">备注（选填）</label>
+      <input type="text" class="form-input" id="supplierNote" placeholder="如：卖蔬菜的老王">
+    </div>
+    <button class="btn btn-primary" onclick="addSupplier()">添加供货商</button>
+  </div>
+
+  <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
+    <button class="btn btn-sm btn-outline" onclick="exportSuppliersToExcel()">📥 导出 Excel</button>
+  </div>
+  <div id="supplierList"></div>
+</div>
+
+<!-- Page: 交易记录 -->
+<div id="page-orders" class="page">
+  <div class="search-bar">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="orderSearch" placeholder="搜索供货商、商品..." oninput="renderOrders()">
+  </div>
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterOrders('all', this)">全部</button>
+    <button class="filter-btn" onclick="filterOrders('today', this)">今天</button>
+    <button class="filter-btn" onclick="filterOrders('week', this)">本周</button>
+    <button class="filter-btn" onclick="filterOrders('month', this)">本月</button>
+  </div>
+  <div id="orderList"></div>
+</div>
+
+<!-- Page: 欠款汇总 -->
+<div id="page-debts" class="page">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-value" id="debtTotalCount">0</div>
+      <div class="stat-label">欠款笔数</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="debtTotalAmount">¥0</div>
+      <div class="stat-label">欠款总额</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="debtPersonCount">0</div>
+      <div class="stat-label">欠款人数</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="wipeZeroTotal">¥0</div>
+      <div class="stat-label">累计抹零</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">
+      <span class="icon">💰</span>
+      <span>欠款人明细</span>
+    </div>
+    <div id="debtorList"></div>
+  </div>
+</div>
+
+<!-- Page: 统计 -->
+<div id="page-stats" class="page">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-value" id="statTotalOrders">0</div>
+      <div class="stat-label">总交易笔数</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="statTotalAmount">¥0</div>
+      <div class="stat-label">总交易金额</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="statTodayOrders">0</div>
+      <div class="stat-label">今日交易</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="statTodayAmount">¥0</div>
+      <div class="stat-label">今日金额</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">
+      <span class="icon">📊</span>
+      <span>供货商汇总</span>
+    </div>
+    <div id="supplierStats"></div>
+  </div>
+</div>
+
+<!-- Modal: Edit Supplier -->
+<div class="modal-overlay" id="editSupplierModal">
+  <div class="modal">
+    <div class="modal-title">编辑供货商</div>
+    <div class="form-group">
+      <label class="form-label">供货商名称</label>
+      <input type="text" class="form-input" id="editSupplierName">
+    </div>
+    <div class="form-group">
+      <label class="form-label">联系电话</label>
+      <input type="tel" class="form-input" id="editSupplierPhone">
+    </div>
+    <div class="form-group">
+      <label class="form-label">备注</label>
+      <input type="text" class="form-input" id="editSupplierNote">
+    </div>
+    <input type="hidden" id="editSupplierId">
+    <div class="btn-group">
+      <button class="btn btn-outline" onclick="closeModal('editSupplierModal')" style="flex:1;">取消</button>
+      <button class="btn btn-primary" onclick="saveSupplier()" style="flex:1;">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Order Detail -->
+<div class="modal-overlay" id="orderDetailModal">
+  <div class="modal">
+    <div class="modal-title">订单详情</div>
+    <div id="orderDetailContent"></div>
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="closeModal('orderDetailModal')" style="flex:1;">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Supplier Summary -->
+<div class="modal-overlay" id="supplierSummaryModal">
+  <div class="modal">
+    <div class="modal-title" id="supplierSummaryTitle">供货商销售汇总</div>
+    <div id="supplierSummaryContent"></div>
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="closeModal('supplierSummaryModal')" style="flex:1;">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Debt Settlement -->
+<div class="modal-overlay" id="debtSettlementModal">
+  <div class="modal">
+    <div class="modal-title" id="debtSettlementTitle">欠款结算</div>
+    <div id="debtSettlementContent"></div>
+    <div class="btn-group">
+      <button class="btn btn-outline" onclick="closeModal('debtSettlementModal')" style="flex:1;">取消</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ============ Data Store ============
+const DB = {
+  suppliers: JSON.parse(localStorage.getItem('market_suppliers') || '[]'),
+  orders: JSON.parse(localStorage.getItem('market_orders') || '[]'),
+  currentOrders: JSON.parse(localStorage.getItem('market_current_orders') || '[]'),
+
+  save() {
+    localStorage.setItem('market_suppliers', JSON.stringify(this.suppliers));
+    localStorage.setItem('market_orders', JSON.stringify(this.orders));
+    localStorage.setItem('market_current_orders', JSON.stringify(this.currentOrders));
+  }
+};
+
+let currentFilter = 'all';
+
+// ============ Utility ============
+function genId() {
+  return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+}
+
+function formatMoney(n) {
+  return '¥' + parseFloat(n || 0).toFixed(2);
+}
+
+function escHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function formatDate(ts) {
+  if (!ts || isNaN(ts)) return '--';
+  const d = new Date(ts);
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  const hh = String(d.getHours()).padStart(2, '0');
+  const mi = String(d.getMinutes()).padStart(2, '0');
+  return `${d.getFullYear()}-${mm}-${dd} ${hh}:${mi}`;
+}
+
+function formatDateShort(ts) {
+  const d = new Date(ts);
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${mm}-${dd}`;
+}
+
+function isToday(ts) {
+  const d = new Date(ts);
+  const now = new Date();
+  return d.getFullYear() === now.getFullYear() &&
+    d.getMonth() === now.getMonth() &&
+    d.getDate() === now.getDate();
+}
+
+function isThisWeek(ts) {
+  const d = new Date(ts);
+  const now = new Date();
+  const weekStart = new Date(now);
+  weekStart.setDate(now.getDate() - now.getDay());
+  weekStart.setHours(0, 0, 0, 0);
+  return d >= weekStart;
+}
+
+function isThisMonth(ts) {
+  const d = new Date(ts);
+  const now = new Date();
+  return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+function openModal(id) {
+  document.getElementById(id).classList.add('show');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+
+// ============ Page Navigation ============
+function switchPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  // Find the correct tab button
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    if (t.textContent.trim() === getTabLabel(name)) t.classList.add('active');
+  });
+
+  if (name === 'weighing') showWeighingUI();
+  if (name === 'suppliers') renderSuppliers();
+  if (name === 'orders') renderOrders();
+  if (name === 'debts') renderDebts();
+  if (name === 'stats') renderStats();
+}
+
+function getTabLabel(name) {
+  const map = { weighing: '称重记账', suppliers: '供货商', orders: '交易记录', debts: '欠款汇总', stats: '统计' };
+  return map[name] || '';
+}
+
+// ============ Suppliers ============
+function addSupplier() {
+  const name = document.getElementById('supplierName').value.trim();
+  const phone = document.getElementById('supplierPhone').value.trim();
+  const note = document.getElementById('supplierNote').value.trim();
+  if (!name) { showToast('请输入供货商名称'); return; }
+
+  DB.suppliers.push({ id: genId(), name, phone, note, archived: false, createdAt: Date.now() });
+  DB.save();
+  document.getElementById('supplierName').value = '';
+  document.getElementById('supplierPhone').value = '';
+  document.getElementById('supplierNote').value = '';
+  renderSuppliers();
+  updateSupplierSelect();
+  showToast('供货商添加成功');
+}
+
+function renderSuppliers() {
+  const list = document.getElementById('supplierList');
+  const activeSuppliers = DB.suppliers.filter(s => !s.archived);
+  const archivedSuppliers = DB.suppliers.filter(s => s.archived);
+
+  let html = '';
+
+  if (activeSuppliers.length === 0 && archivedSuppliers.length === 0) {
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon">🏪</div><div class="empty-text">暂无供货商，请先添加</div></div>';
+    return;
+  }
+
+  if (activeSuppliers.length > 0) {
+    html += activeSuppliers.map(s => {
+      const supplierOrders = DB.orders.filter(o => o.supplierId === s.id);
+      const orderCount = supplierOrders.length;
+      const totalWeight = supplierOrders.reduce((sum, o) => sum + o.totalNet, 0);
+      const totalAmount = supplierOrders.reduce((sum, o) => sum + o.totalAmount, 0);
+      const totalPaid = supplierOrders.reduce((sum, o) => sum + o.actualPayment, 0);
+      const totalBalance = supplierOrders.reduce((sum, o) => sum + o.balance, 0);
+      return `
+        <div class="supplier-item">
+          <div onclick="showSupplierSummary('${s.id}')" style="flex:1;cursor:pointer;">
+            <div class="name">${escHtml(s.name)}</div>
+            <div class="meta">${s.phone || '无电话'} · ${orderCount} 笔交易${s.note ? ' · ' + s.note : ''}</div>
+            ${orderCount > 0 ? `<div class="meta" style="margin-top:4px;">累计销售 <strong>${totalWeight.toFixed(2)}</strong> 斤 · 应收 <strong>${formatMoney(totalAmount)}</strong> · 实收 <strong style="color:var(--success)">${formatMoney(totalPaid)}</strong>${totalBalance > 0 ? ' · 欠 <strong style="color:var(--danger)">' + formatMoney(totalBalance) + '</strong>' : ''}</div>` : ''}
+          </div>
+          <div class="actions">
+            <button class="btn btn-sm btn-outline" onclick="event.stopPropagation();editSupplier('${s.id}')">编辑</button>
+            <button class="btn btn-sm btn-danger" onclick="event.stopPropagation();archiveSupplier('${s.id}')">归档</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  } else {
+    html += '<div class="empty-state" style="padding:20px;"><div class="empty-text">暂无活跃供货商</div></div>';
+  }
+
+  if (archivedSuppliers.length > 0) {
+    html += `
+      <div class="divider" style="margin:20px 0;"></div>
+      <div style="font-size:14px;color:var(--text-light);margin-bottom:12px;font-weight:500;">已归档供货商（${archivedSuppliers.length}）</div>
+    `;
+    html += archivedSuppliers.map(s => {
+      const supplierOrders = DB.orders.filter(o => o.supplierId === s.id);
+      const orderCount = supplierOrders.length;
+      return `
+        <div class="supplier-item" style="opacity:0.7;background:#f9f9f9;">
+          <div onclick="showSupplierSummary('${s.id}')" style="flex:1;cursor:pointer;">
+            <div class="name">${escHtml(s.name)} <span class="badge badge-warning">已归档</span></div>
+            <div class="meta">${s.phone || '无电话'} · ${orderCount} 笔历史交易${s.note ? ' · ' + s.note : ''}</div>
+          </div>
+          <div class="actions">
+            <button class="btn btn-sm btn-outline" onclick="event.stopPropagation();unarchiveSupplier('${s.id}')">恢复</button>
+            <button class="btn btn-sm btn-danger" onclick="event.stopPropagation();deleteSupplier('${s.id}')">删除</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  list.innerHTML = html;
+}
+
+function editSupplier(id) {
+  const s = DB.suppliers.find(x => x.id === id);
+  if (!s) return;
+  document.getElementById('editSupplierName').value = s.name;
+  document.getElementById('editSupplierPhone').value = s.phone || '';
+  document.getElementById('editSupplierNote').value = s.note || '';
+  document.getElementById('editSupplierId').value = id;
+  openModal('editSupplierModal');
+}
+
+function saveSupplier() {
+  const id = document.getElementById('editSupplierId').value;
+  const s = DB.suppliers.find(x => x.id === id);
+  if (!s) return;
+  s.name = document.getElementById('editSupplierName').value.trim();
+  s.phone = document.getElementById('editSupplierPhone').value.trim();
+  s.note = document.getElementById('editSupplierNote').value.trim();
+  DB.save();
+  closeModal('editSupplierModal');
+  renderSuppliers();
+  updateSupplierSelect();
+  showToast('供货商信息已更新');
+}
+
+function deleteSupplier(id) {
+  const s = DB.suppliers.find(x => x.id === id);
+  if (!s) return;
+  const hasOrders = DB.orders.some(o => o.supplierId === id);
+  let msg = '确定删除供货商「' + s.name + '」？';
+  if (hasOrders) {
+    msg += '\n\n注意：该供货商有交易记录，删除后交易记录中的供货商信息将保留但无法再通过供货商筛选查看。';
+  }
+  if (confirm(msg)) {
+    DB.suppliers = DB.suppliers.filter(x => x.id !== id);
+    DB.save();
+    renderSuppliers();
+    updateSupplierSelect();
+    showToast('已删除');
+  }
+}
+
+function archiveSupplier(id) {
+  if (confirm('确定归档该供货商？归档后不再在供货商列表中显示，但历史交易记录仍可查询。')) {
+    const s = DB.suppliers.find(x => x.id === id);
+    if (s) {
+      s.archived = true;
+      DB.save();
+      renderSuppliers();
+      updateSupplierSelect();
+      showToast('供货商已归档');
+    }
+  }
+}
+
+function unarchiveSupplier(id) {
+  const s = DB.suppliers.find(x => x.id === id);
+  if (s) {
+    s.archived = false;
+    DB.save();
+    renderSuppliers();
+    updateSupplierSelect();
+    showToast('供货商已恢复');
+  }
+}
+
+function updateSupplierSelect() {
+  const sel = document.getElementById('orderSupplier');
+  const activeSuppliers = DB.suppliers.filter(s => !s.archived);
+  sel.innerHTML = '<option value="">-- 请选择供货商 --</option>' +
+    activeSuppliers.map(s => `<option value="${s.id}">${escHtml(s.name)}</option>`).join('');
+}
+
+function showSupplierSummary(id) {
+  const s = DB.suppliers.find(x => x.id === id);
+  if (!s) return;
+  const orders = DB.orders.filter(o => o.supplierId === id).sort((a, b) => b.completedAt - a.completedAt);
+
+  document.getElementById('supplierSummaryTitle').textContent = s.name + ' - 销售汇总';
+
+  let html = '';
+  if (!orders.length) {
+    html = '<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-text">该供货商暂无交易记录</div></div>';
+  } else {
+    const totalWeight = orders.reduce((sum, o) => sum + o.totalNet, 0);
+    const totalAmount = orders.reduce((sum, o) => sum + o.totalAmount, 0);
+    const totalPaid = orders.reduce((sum, o) => sum + o.actualPayment, 0);
+    const totalBalance = orders.reduce((sum, o) => sum + o.balance, 0);
+
+    html += `
+      <div class="stats-grid" style="grid-template-columns:1fr 1fr;margin-bottom:16px;">
+        <div class="stat-card">
+          <div class="stat-value">${orders.length}</div>
+          <div class="stat-label">交易笔数</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${totalWeight.toFixed(2)}</div>
+          <div class="stat-label">总销售斤数</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${formatMoney(totalAmount)}</div>
+          <div class="stat-label">应收总额</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${formatMoney(totalPaid)}</div>
+          <div class="stat-label">实收总额</div>
+        </div>
+      </div>
+      ${totalBalance > 0 ? `<div class="summary-row" style="background:#ffebee;padding:10px 14px;border-radius:8px;margin-bottom:16px;"><span class="label" style="color:var(--danger);font-weight:600;">累计欠款</span><span class="value" style="color:var(--danger);font-size:18px;font-weight:700;">${formatMoney(totalBalance)}</span></div>` : ''}
+      <div class="divider"></div>
+      <div style="font-size:15px;font-weight:600;margin-bottom:12px;">交易明细</div>
+    `;
+
+    html += orders.map(o => `
+      <div class="order-item" style="margin-bottom:10px;cursor:pointer;" onclick="closeModal('supplierSummaryModal');showOrderDetail('${o.id}')">
+        <div class="order-header">
+          <div>
+            <div class="supplier-name">${escHtml(o.product)}</div>
+            <div style="font-size:13px;color:var(--text-light);margin-top:2px;">${o.weighings.length}筐 · ${o.totalNet.toFixed(2)}斤 · ${o.price.toFixed(2)}元/斤</div>
+          </div>
+          <div class="date">${formatDate(o.completedAt)}</div>
+        </div>
+        <div class="order-footer">
+          <div class="total-amount">${formatMoney(o.totalAmount)}</div>
+          <div>
+            <span class="paid-amount">实收 ${formatMoney(o.actualPayment)}</span>
+            ${o.balance > 0 ? `<span class="badge badge-danger" style="margin-left:6px;">欠 ${formatMoney(o.balance)}</span>` : '<span class="badge badge-success" style="margin-left:6px;">已结清</span>'}
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('supplierSummaryContent').innerHTML = html;
+  openModal('supplierSummaryModal');
+}
+
+// ============ Order Management ============
+function createOrder() {
+  const supplierId = document.getElementById('orderSupplier').value;
+  const product = document.getElementById('orderProduct').value.trim();
+  const price = parseFloat(document.getElementById('orderPrice').value);
+  const tareWeight = parseFloat(document.getElementById('orderTareWeight').value) || 0;
+
+  if (!supplierId) { showToast('请选择供货商'); return; }
+  if (!product) { showToast('请输入商品名称'); return; }
+  if (!price || price <= 0) { showToast('请输入有效单价'); return; }
+
+  const supplier = DB.suppliers.find(s => s.id === supplierId);
+  const newOrder = {
+    id: genId(),
+    supplierId,
+    supplierName: supplier ? supplier.name : '未知',
+    product,
+    price,
+    tareWeight,
+    weighings: [],
+    createdAt: Date.now()
+  };
+  DB.currentOrders.push(newOrder);
+  DB.save();
+  // Clear form
+  document.getElementById('orderProduct').value = '';
+  document.getElementById('orderPrice').value = '';
+  document.getElementById('orderTareWeight').value = '0';
+  showWeighingUI();
+  showToast('订单已创建，开始称重');
+}
+
+function showWeighingUI() {
+  renderCurrentOrders();
+  const activeOrder = getActiveOrder();
+  if (!activeOrder) {
+    document.getElementById('newOrderForm').style.display = 'block';
+    document.getElementById('weighingSection').style.display = 'none';
+    // Clear weighing form state
+    document.getElementById('grossWeight').value = '';
+    document.getElementById('actualPayment').value = '';
+    document.getElementById('debtorName').value = '';
+    document.getElementById('wipeZero').checked = false;
+    document.getElementById('totalNetWeight').textContent = '0.00';
+    return;
+  }
+
+  document.getElementById('newOrderForm').style.display = 'none';
+  document.getElementById('weighingSection').style.display = 'block';
+
+  // Update tare weight display in weighing section
+  document.getElementById('tareWeightDisplay').textContent = (activeOrder.tareWeight || 0).toFixed(2);
+  document.getElementById('deductTare').checked = false;
+
+  renderWeighings();
+  renderSummary();
+}
+
+function getActiveOrder() {
+  // Find the last non-suspended order
+  for (let i = DB.currentOrders.length - 1; i >= 0; i--) {
+    if (!DB.currentOrders[i].suspended) return DB.currentOrders[i];
+  }
+  return null;
+}
+
+function renderCurrentOrders() {
+  const container = document.getElementById('currentOrdersList');
+  if (DB.currentOrders.length === 0) {
+    container.innerHTML = '';
+    return;
+  }
+
+  const activeOrder = getActiveOrder();
+  container.innerHTML = DB.currentOrders.map((order, idx) => {
+    const isActive = activeOrder && order.id === activeOrder.id;
+    const isSuspended = order.suspended;
+    const borderColor = isActive ? 'border-left:4px solid var(--accent);' : (isSuspended ? 'border-left:4px solid #999;opacity:0.7;' : 'border-left:4px solid var(--primary-light);opacity:0.85;');
+    return `
+    <div class="card" style="margin-bottom:10px;${borderColor}">
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <span class="icon">📋</span>
+          <span>${escHtml(order.product)}</span>
+          <span class="badge badge-warning" style="margin-left:6px;">${order.weighings.length}筐</span>
+          ${isSuspended ? '<span class="badge" style="background:#999;margin-left:4px;">已挂起</span>' : ''}
+        </div>
+        <div style="display:flex;gap:6px;">
+          ${isActive ? '<span class="badge badge-success">当前</span>' : ''}
+          ${isActive ? `<button class="btn btn-sm btn-outline" onclick="suspendCurrentOrder('${order.id}')" style="padding:2px 8px;font-size:12px;">挂起</button>` : ''}
+          ${!isActive ? `<button class="btn btn-sm btn-primary" onclick="resumeCurrentOrder('${order.id}')" style="padding:2px 8px;font-size:12px;">恢复</button>` : ''}
+          <button class="btn btn-sm btn-danger" onclick="deleteCurrentOrder('${order.id}')" style="padding:2px 8px;font-size:12px;">删除</button>
+        </div>
+      </div>
+      <div style="font-size:13px;color:var(--text-light);">
+        <div>供货商：<strong style="color:var(--text);">${escHtml(order.supplierName)}</strong></div>
+        <div style="margin-top:2px;">单价：<strong style="color:var(--accent);">${order.price.toFixed(2)} 元/斤</strong> · 净重：<strong>${order.weighings.reduce((s,w)=>s+w.net,0).toFixed(2)} 斤</strong></div>
+      </div>
+    </div>
+  `}).join('');
+}
+
+function suspendCurrentOrder(orderId) {
+  const order = DB.currentOrders.find(o => o.id === orderId);
+  if (!order) return;
+  order.suspended = true;
+  DB.save();
+  showWeighingUI();
+  showToast('订单已挂起，可以创建新订单');
+}
+
+function resumeCurrentOrder(orderId) {
+  // Move resumed order to the end (active position)
+  const idx = DB.currentOrders.findIndex(o => o.id === orderId);
+  if (idx === -1) return;
+  const order = DB.currentOrders[idx];
+  order.suspended = false;
+  DB.currentOrders.splice(idx, 1);
+  DB.currentOrders.push(order);
+  DB.save();
+  showWeighingUI();
+  showToast('订单已恢复为当前订单');
+}
+
+function deleteCurrentOrder(orderId) {
+  if (!confirm('确定删除这笔当前订单？此操作不可恢复。')) return;
+  DB.currentOrders = DB.currentOrders.filter(o => o.id !== orderId);
+  DB.save();
+  showWeighingUI();
+  showToast('订单已删除');
+}
+
+function addWeighing() {
+  const gross = parseFloat(document.getElementById('grossWeight').value);
+  if (!gross || gross <= 0) { showToast('请输入有效的毛重'); return; }
+
+  const activeOrder = getActiveOrder();
+  if (!activeOrder) { showToast('没有活跃的订单'); return; }
+
+  const deductTare = document.getElementById('deductTare').checked;
+  const tare = deductTare ? (activeOrder.tareWeight || 0) : 0;
+  const net = Math.max(0, gross - tare);
+
+  activeOrder.weighings.push({
+    id: genId(),
+    gross,
+    deductTare,
+    tare,
+    net,
+    time: Date.now()
+  });
+  DB.save();
+
+  // Reset inputs
+  document.getElementById('grossWeight').value = '';
+
+  renderWeighings();
+  renderSummary();
+  renderCurrentOrders();
+  showToast(`第 ${activeOrder.weighings.length} 筐已添加 · 净重 ${net.toFixed(2)} 斤`);
+}
+
+function removeWeighing(id) {
+  if (!confirm('确定删除这筐称重记录？')) return;
+  const activeOrder = getActiveOrder();
+  if (!activeOrder) return;
+  activeOrder.weighings = activeOrder.weighings.filter(w => w.id !== id);
+  DB.save();
+  renderWeighings();
+  renderSummary();
+}
+
+function renderWeighings() {
+  const order = getActiveOrder();
+  const list = document.getElementById('weighList');
+  const card = document.getElementById('weighListCard');
+  const countEl = document.getElementById('weighCount');
+
+  if (!order || !order.weighings.length) {
+    card.style.display = 'none';
+    countEl.textContent = '0 筐';
+    document.getElementById('totalNetWeight').textContent = '0.00';
+    return;
+  }
+
+  card.style.display = 'block';
+  countEl.textContent = order.weighings.length + ' 筐';
+
+  const totalNet = order.weighings.reduce((s, w) => s + w.net, 0);
+  document.getElementById('totalNetWeight').textContent = totalNet.toFixed(2);
+
+  list.innerHTML = order.weighings.map((w, i) => `
+    <div class="weigh-item">
+      <div class="info">
+        <div class="weigh-num">第 ${i + 1} 筐 · ${formatDate(w.time)}</div>
+        <div class="weigh-detail">毛重 ${w.gross.toFixed(2)} 斤${w.deductTare ? ' - 筐重 ' + w.tare.toFixed(2) + ' 斤' : ''}</div>
+      </div>
+      <div class="weigh-net">${w.net.toFixed(2)} 斤</div>
+      <button class="btn-remove" onclick="removeWeighing('${w.id}')">×</button>
+    </div>
+  `).join('');
+}
+
+function renderSummary() {
+  const order = getActiveOrder();
+  const card = document.getElementById('summaryCard');
+  if (!order || !order.weighings.length) {
+    card.style.display = 'none';
+    return;
+  }
+
+  card.style.display = 'block';
+  const totalNet = order.weighings.reduce((s, w) => s + w.net, 0);
+  const totalAmount = totalNet * order.price;
+
+  document.getElementById('summaryBaskets').textContent = order.weighings.length;
+  document.getElementById('summaryWeight').textContent = totalNet.toFixed(2) + ' 斤';
+  document.getElementById('summaryPrice').textContent = order.price.toFixed(2) + ' 元/斤';
+  document.getElementById('summaryTotal').textContent = formatMoney(totalAmount);
+
+  // Auto-fill payment with total (update if user hasn't manually changed it)
+  const payInput = document.getElementById('actualPayment');
+  const prevTotal = order.weighings.length > 1 ? (order.weighings.slice(0, -1).reduce((s, w) => s + w.net, 0) * order.price) : 0;
+  const currentVal = parseFloat(payInput.value) || 0;
+  if (!payInput.value || Math.abs(currentVal - prevTotal) < 0.01) {
+    payInput.value = totalAmount.toFixed(2);
+  }
+
+  // Trigger payment input check
+  onPaymentInput();
+}
+
+function onPaymentInput() {
+  const order = getActiveOrder();
+  if (!order || !order.weighings.length) return;
+  const totalAmount = order.weighings.reduce((s, w) => s + w.net, 0) * order.price;
+  const actualPayment = parseFloat(document.getElementById('actualPayment').value) || 0;
+  const diff = totalAmount - actualPayment;
+
+  const wipeZeroGroup = document.getElementById('wipeZeroGroup');
+  const debtorGroup = document.getElementById('debtorGroup');
+  const wipeZeroCheckbox = document.getElementById('wipeZero');
+
+  if (diff > 0.01) {
+    wipeZeroGroup.style.display = 'flex';
+    document.getElementById('wipeZeroAmount').textContent = formatMoney(diff);
+    if (!wipeZeroCheckbox.checked) {
+      debtorGroup.style.display = 'block';
+    }
+  } else {
+    wipeZeroGroup.style.display = 'none';
+    debtorGroup.style.display = 'none';
+    wipeZeroCheckbox.checked = false;
+  }
+}
+
+function toggleWipeZero() {
+  const checked = document.getElementById('wipeZero').checked;
+  const debtorGroup = document.getElementById('debtorGroup');
+  if (checked) {
+    debtorGroup.style.display = 'none';
+    document.getElementById('debtorName').value = '';
+  } else {
+    debtorGroup.style.display = 'block';
+  }
+}
+
+function cancelOrder() {
+  if (!confirm('确定取消当前订单？所有称重记录将丢失。')) return;
+  const activeOrder = getActiveOrder();
+  if (activeOrder) {
+    DB.currentOrders = DB.currentOrders.filter(o => o.id !== activeOrder.id);
+  }
+  DB.save();
+  showWeighingUI();
+  showToast('订单已取消');
+}
+
+function finishOrder() {
+  const order = getActiveOrder();
+  if (!order || !order.weighings.length) { showToast('没有称重记录'); return; }
+
+  const totalNet = order.weighings.reduce((s, w) => s + w.net, 0);
+  const totalAmount = totalNet * order.price;
+  const actualPayment = parseFloat(document.getElementById('actualPayment').value) || 0;
+  const wipeZero = document.getElementById('wipeZero').checked;
+  const debtorName = document.getElementById('debtorName').value.trim();
+
+  let balance = totalAmount - actualPayment;
+  let wipeZeroAmount = 0;
+
+  if (wipeZero && balance > 0) {
+    wipeZeroAmount = balance;
+    balance = 0;
+  }
+
+  if (balance > 0 && !debtorName) {
+    showToast('请输入欠款人姓名');
+    document.getElementById('debtorGroup').style.display = 'block';
+    return;
+  }
+
+  const completedOrder = {
+    ...order,
+    totalNet,
+    totalAmount,
+    actualPayment,
+    wipeZero,
+    wipeZeroAmount,
+    debtorName: balance > 0 ? debtorName : '',
+    balance,
+    completedAt: Date.now()
+  };
+
+  DB.orders.push(completedOrder);
+  DB.currentOrders = DB.currentOrders.filter(o => o.id !== order.id);
+  DB.save();
+  showWeighingUI();
+
+  let msg = '订单已完成！应收 ' + formatMoney(totalAmount) + ' 实收 ' + formatMoney(actualPayment);
+  if (wipeZeroAmount > 0) msg += ' 抹零 ' + formatMoney(wipeZeroAmount);
+  if (balance > 0) msg += ' 欠款 ' + formatMoney(balance) + '（' + debtorName + '）';
+  showToast(msg);
+}
+
+// ============ Orders List ============
+function filterOrders(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderOrders();
+}
+
+function renderOrders() {
+  const search = (document.getElementById('orderSearch').value || '').toLowerCase();
+  let orders = [...DB.orders].reverse();
+
+  // Time filter
+  if (currentFilter === 'today') orders = orders.filter(o => isToday(o.completedAt));
+  else if (currentFilter === 'week') orders = orders.filter(o => isThisWeek(o.completedAt));
+  else if (currentFilter === 'month') orders = orders.filter(o => isThisMonth(o.completedAt));
+
+  // Search filter
+  if (search) {
+    orders = orders.filter(o =>
+      o.supplierName.toLowerCase().includes(search) ||
+      o.product.toLowerCase().includes(search)
+    );
+  }
+
+  const list = document.getElementById('orderList');
+  if (!orders.length) {
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-text">暂无交易记录</div></div>';
+    return;
+  }
+
+  list.innerHTML = orders.map(o => `
+    <div class="order-item" onclick="showOrderDetail('${o.id}')">
+      <div class="order-header">
+        <div>
+          <div class="supplier-name">${escHtml(o.supplierName)}</div>
+          <div style="font-size:13px;color:var(--text-light);margin-top:2px;">${escHtml(o.product)} · ${o.weighings.length}筐 · ${o.totalNet.toFixed(2)}斤</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button class="btn btn-sm btn-danger" onclick="event.stopPropagation();deleteOrder('${o.id}')" style="padding:2px 8px;font-size:12px;">删除</button>
+          <div class="date">${formatDate(o.completedAt)}</div>
+        </div>
+      </div>
+      <div class="order-footer">
+        <div class="total-amount">${formatMoney(o.totalAmount)}</div>
+        <div>
+          <span class="paid-amount">实收 ${formatMoney(o.actualPayment)}</span>
+          ${o.wipeZero ? `<span class="badge badge-warning" style="margin-left:6px;">抹零 ${formatMoney(o.wipeZeroAmount)}</span>` : ''}
+          ${o.balance > 0 ? `<span class="badge badge-danger" style="margin-left:6px;">欠 ${formatMoney(o.balance)}${o.debtorName ? '（' + escHtml(o.debtorName) + '）' : ''}</span>` : ''}
+          ${!o.wipeZero && o.balance <= 0 ? '<span class="badge badge-success" style="margin-left:6px;">已结清</span>' : ''}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function showOrderDetail(id) {
+  const o = DB.orders.find(x => x.id === id);
+  if (!o) return;
+
+  const content = document.getElementById('orderDetailContent');
+  content.innerHTML = `
+    <div style="margin-bottom:12px;">
+      <div style="font-size:14px;color:var(--text-light);">供货商</div>
+      <div style="font-size:16px;font-weight:600;">${escHtml(o.supplierName)}</div>
+    </div>
+    <div style="margin-bottom:12px;">
+      <div style="font-size:14px;color:var(--text-light);">商品</div>
+      <div style="font-size:16px;font-weight:600;">${escHtml(o.product)}</div>
+    </div>
+    <div style="margin-bottom:12px;">
+      <div style="font-size:14px;color:var(--text-light);">完成时间</div>
+      <div style="font-size:15px;">${formatDate(o.completedAt)}</div>
+    </div>
+    <div class="divider"></div>
+    <div style="font-size:14px;font-weight:600;margin-bottom:8px;">称重明细（${o.weighings.length} 筐）</div>
+    ${o.weighings.map((w, i) => `
+      <div class="weigh-item" style="margin-bottom:6px;">
+        <div class="info">
+          <div class="weigh-num">第 ${i + 1} 筐</div>
+          <div class="weigh-detail">毛重 ${w.gross.toFixed(2)} 斤${w.deductTare ? ' - 筐重 ' + w.tare.toFixed(2) + ' 斤' : ''}</div>
+        </div>
+        <div class="weigh-net">${w.net.toFixed(2)} 斤</div>
+      </div>
+    `).join('')}
+    <div class="divider"></div>
+    <div class="summary">
+      <div class="summary-row">
+        <span class="label">总筐数</span>
+        <span class="value">${o.weighings.length}</span>
+      </div>
+      <div class="summary-row">
+        <span class="label">总净重</span>
+        <span class="value">${o.totalNet.toFixed(2)} 斤</span>
+      </div>
+      <div class="summary-row">
+        <span class="label">单价</span>
+        <span class="value">${o.price.toFixed(2)} 元/斤</span>
+      </div>
+      <div class="summary-row total">
+        <span class="label">应收总额</span>
+        <span class="value">${formatMoney(o.totalAmount)}</span>
+      </div>
+      <div class="summary-row">
+        <span class="label">实际收款</span>
+        <span class="value" style="color:var(--success)">${formatMoney(o.actualPayment)}</span>
+      </div>
+      ${o.wipeZero ? `
+        <div class="summary-row">
+          <span class="label">抹零金额</span>
+          <span class="value" style="color:var(--accent)">${formatMoney(o.wipeZeroAmount)}</span>
+        </div>
+      ` : ''}
+      ${o.balance > 0 ? `
+        <div class="summary-row">
+          <span class="label">欠款</span>
+          <span class="value" style="color:var(--danger)">${formatMoney(o.balance)}</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">欠款人</span>
+          <span class="value" style="color:var(--danger)">${escHtml(o.debtorName) || '未填写'}</span>
+        </div>
+      ` : ''}
+    </div>
+  `;
+  openModal('orderDetailModal');
+}
+
+function deleteOrder(id) {
+  const o = DB.orders.find(x => x.id === id);
+  if (!o) return;
+  if (confirm('确定删除这笔交易记录？\n\n供货商：' + o.supplierName + '\n商品：' + o.product + '\n金额：' + formatMoney(o.totalAmount) + '\n\n此操作不可恢复。')) {
+    DB.orders = DB.orders.filter(x => x.id !== id);
+    DB.save();
+    renderOrders();
+    showToast('交易记录已删除');
+  }
+}
+
+// ============ Statistics ============
+function renderStats() {
+  const orders = DB.orders;
+  const todayOrders = orders.filter(o => isToday(o.completedAt));
+
+  document.getElementById('statTotalOrders').textContent = orders.length;
+  document.getElementById('statTotalAmount').textContent = formatMoney(orders.reduce((s, o) => s + o.actualPayment, 0));
+  document.getElementById('statTodayOrders').textContent = todayOrders.length;
+  document.getElementById('statTodayAmount').textContent = formatMoney(todayOrders.reduce((s, o) => s + o.actualPayment, 0));
+
+  // Supplier stats
+  const statsEl = document.getElementById('supplierStats');
+  const supplierMap = {};
+  orders.forEach(o => {
+    if (!supplierMap[o.supplierId]) {
+      supplierMap[o.supplierId] = { name: o.supplierName, count: 0, amount: 0, weight: 0, balance: 0 };
+    }
+    supplierMap[o.supplierId].count++;
+    supplierMap[o.supplierId].amount += o.actualPayment;
+    supplierMap[o.supplierId].weight += o.totalNet;
+    supplierMap[o.supplierId].balance += o.balance;
+  });
+
+  const entries = Object.values(supplierMap);
+  if (!entries.length) {
+    statsEl.innerHTML = '<div class="empty-state"><div class="empty-icon">📊</div><div class="empty-text">暂无数据</div></div>';
+    return;
+  }
+
+  statsEl.innerHTML = entries.map(s => `
+    <div class="supplier-item" style="cursor:default;">
+      <div>
+        <div class="name">${escHtml(s.name)}</div>
+        <div class="meta">${s.count} 笔交易 · ${s.weight.toFixed(1)} 斤 · 实收 ${formatMoney(s.amount)}</div>
+        ${s.balance > 0 ? `<div class="meta" style="color:var(--danger);">累计欠款 ${formatMoney(s.balance)}</div>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderDebts() {
+  const debtOrders = DB.orders.filter(o => o.balance > 0);
+  const wipeZeroOrders = DB.orders.filter(o => o.wipeZero && o.wipeZeroAmount > 0);
+
+  const totalDebt = debtOrders.reduce((s, o) => s + o.balance, 0);
+  const totalWipeZero = wipeZeroOrders.reduce((s, o) => s + o.wipeZeroAmount, 0);
+
+  // Group by debtor
+  const debtorMap = {};
+  debtOrders.forEach(o => {
+    const key = o.debtorName || '未填写';
+    if (!debtorMap[key]) {
+      debtorMap[key] = { name: key, orders: [], totalBalance: 0 };
+    }
+    debtorMap[key].orders.push(o);
+    debtorMap[key].totalBalance += o.balance;
+  });
+
+  document.getElementById('debtTotalCount').textContent = debtOrders.length;
+  document.getElementById('debtTotalAmount').textContent = formatMoney(totalDebt);
+  document.getElementById('debtPersonCount').textContent = Object.keys(debtorMap).length;
+  document.getElementById('wipeZeroTotal').textContent = formatMoney(totalWipeZero);
+
+  const list = document.getElementById('debtorList');
+  const entries = Object.values(debtorMap).sort((a, b) => b.totalBalance - a.totalBalance);
+
+  if (!entries.length) {
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon">💰</div><div class="empty-text">暂无欠款记录</div></div>';
+    return;
+  }
+
+  list.innerHTML = entries.map(d => `
+    <div class="card" style="margin-bottom:12px;border-left:4px solid var(--danger);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <div style="font-size:16px;font-weight:600;">${d.name}</div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="font-size:18px;font-weight:700;color:var(--danger);">${formatMoney(d.totalBalance)}</div>
+          <button class="btn btn-sm btn-accent" onclick="openDebtSettlement('${d.name}')" style="background:var(--accent);color:white;border:none;padding:6px 14px;font-size:13px;">结算</button>
+        </div>
+      </div>
+      <div style="font-size:13px;color:var(--text-light);margin-bottom:10px;">${d.orders.length} 笔欠款</div>
+      ${d.orders.map(o => `
+        <div class="order-item" style="margin-bottom:8px;cursor:pointer;" onclick="showOrderDetail('${o.id}')">
+          <div class="order-header">
+            <div>
+              <div class="supplier-name">${o.supplierName} · ${o.product}</div>
+              <div style="font-size:13px;color:var(--text-light);margin-top:2px;">${o.weighings.length}筐 · ${o.totalNet.toFixed(2)}斤 · ${formatDate(o.completedAt)}</div>
+            </div>
+          </div>
+          <div class="order-footer" style="margin-top:8px;padding-top:8px;">
+            <div class="total-amount">应收 ${formatMoney(o.totalAmount)}</div>
+            <div>
+              <span class="paid-amount">实收 ${formatMoney(o.actualPayment)}</span>
+              <span class="badge badge-danger" style="margin-left:6px;">欠 ${formatMoney(o.balance)}</span>
+            </div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+}
+
+function openDebtSettlement(debtorName) {
+  const debtOrders = DB.orders.filter(o => o.balance > 0 && (o.debtorName || '未填写') === debtorName);
+  const totalBalance = debtOrders.reduce((s, o) => s + o.balance, 0);
+
+  document.getElementById('debtSettlementTitle').textContent = debtorName + ' - 欠款结算';
+
+  let html = `
+    <div class="summary" style="margin-bottom:16px;">
+      <div class="summary-row total">
+        <span class="label">未还总额</span>
+        <span class="value">${formatMoney(totalBalance)}</span>
+      </div>
+    </div>
+    <div style="font-size:15px;font-weight:600;margin-bottom:12px;">待结算订单（${debtOrders.length} 笔）</div>
+  `;
+
+  html += debtOrders.map(o => `
+    <div class="order-item" style="margin-bottom:8px;">
+      <div class="order-header">
+        <div>
+          <div class="supplier-name">${o.supplierName} · ${o.product}</div>
+          <div style="font-size:13px;color:var(--text-light);margin-top:2px;">${formatDate(o.completedAt)}</div>
+        </div>
+      </div>
+      <div class="order-footer" style="margin-top:8px;padding-top:8px;">
+        <div class="total-amount">应收 ${formatMoney(o.totalAmount)}</div>
+        <div>
+          <span class="paid-amount">已收 ${formatMoney(o.actualPayment)}</span>
+          <span class="badge badge-danger" style="margin-left:6px;">欠 ${formatMoney(o.balance)}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  html += `
+    <div class="divider"></div>
+    <div class="form-group">
+      <label class="form-label">偿还金额（元）</label>
+      <input type="number" class="form-input" id="settleAmount" placeholder="0.00" step="0.01" min="0" max="${totalBalance.toFixed(2)}" value="${totalBalance.toFixed(2)}">
+    </div>
+    <div class="checkbox-group" style="margin-top:8px;">
+      <input type="checkbox" id="settleWipeZero" onchange="updateSettleRemain(${totalBalance})">
+      <label for="settleWipeZero">差额抹零（偿还金额小于欠款总额时，差额部分自动抹零）</label>
+    </div>
+    <div class="summary" style="margin-top:12px;">
+      <div class="summary-row">
+        <span class="label">偿还后未还</span>
+        <span class="value" id="settleRemain" style="color:var(--danger);">${formatMoney(0)}</span>
+      </div>
+      <div class="summary-row" id="settleWipeRow" style="display:none;">
+        <span class="label">抹零金额</span>
+        <span class="value" id="settleWipeAmount" style="color:var(--accent);">${formatMoney(0)}</span>
+      </div>
+    </div>
+    <div class="btn-group" style="margin-top:16px;">
+      <button class="btn btn-outline" onclick="closeModal('debtSettlementModal')" style="flex:1;">取消</button>
+      <button class="btn btn-primary" onclick="settleDebt('${debtorName}')" style="flex:1;">确认偿还</button>
+      <button class="btn btn-accent" onclick="settleDebtFull('${debtorName}')" style="flex:1;">全部结清</button>
+    </div>
+  `;
+
+  document.getElementById('debtSettlementContent').innerHTML = html;
+
+  // Auto-update remain on input
+  document.getElementById('settleAmount').addEventListener('input', function() {
+    updateSettleRemain(totalBalance);
+  });
+
+  openModal('debtSettlementModal');
+}
+
+function updateSettleRemain(totalBalance) {
+  const pay = parseFloat(document.getElementById('settleAmount').value) || 0;
+  const wipeZero = document.getElementById('settleWipeZero').checked;
+  let remain = Math.max(0, totalBalance - pay);
+  let wipeAmount = 0;
+  if (wipeZero && remain > 0 && pay > 0) {
+    wipeAmount = remain;
+    remain = 0;
+  }
+  document.getElementById('settleRemain').textContent = formatMoney(remain);
+  const wipeRow = document.getElementById('settleWipeRow');
+  if (wipeRow) {
+    wipeRow.style.display = wipeAmount > 0 ? 'flex' : 'none';
+    document.getElementById('settleWipeAmount').textContent = formatMoney(wipeAmount);
+  }
+}
+
+function settleDebt(debtorName) {
+  const payAmount = parseFloat(document.getElementById('settleAmount').value) || 0;
+  if (payAmount <= 0) { showToast('请输入偿还金额'); return; }
+
+  const debtOrders = DB.orders.filter(o => o.balance > 0 && (o.debtorName || '未填写') === debtorName)
+    .sort((a, b) => a.completedAt - b.completedAt);
+
+  const totalBalance = debtOrders.reduce((s, o) => s + o.balance, 0);
+  const wipeZero = document.getElementById('settleWipeZero').checked;
+  let remaining = payAmount;
+  let settledCount = 0;
+  let wipeAmount = 0;
+
+  debtOrders.forEach(o => {
+    if (remaining <= 0 && !wipeZero) return;
+    const pay = Math.min(remaining, o.balance);
+    o.actualPayment += pay;
+    o.balance -= pay;
+    remaining -= pay;
+    settledCount++;
+  });
+
+  // If wipeZero is checked and there's still remaining balance, wipe it
+  if (wipeZero) {
+    debtOrders.forEach(o => {
+      if (o.balance > 0) {
+        wipeAmount += o.balance;
+        o.balance = 0;
+        settledCount++;
+      }
+    });
+  }
+
+  DB.save();
+  closeModal('debtSettlementModal');
+  renderDebts();
+  let msg = '已偿还 ' + formatMoney(payAmount);
+  if (wipeAmount > 0) msg += '，抹零 ' + formatMoney(wipeAmount);
+  msg += '，' + settledCount + ' 笔订单已更新';
+  showToast(msg);
+}
+
+function settleDebtFull(debtorName) {
+  const debtOrders = DB.orders.filter(o => o.balance > 0 && (o.debtorName || '未填写') === debtorName);
+  const totalBalance = debtOrders.reduce((s, o) => s + o.balance, 0);
+
+  if (!confirm('确定全部结清 ' + debtorName + ' 的欠款 ' + formatMoney(totalBalance) + '？')) return;
+
+  debtOrders.forEach(o => {
+    o.actualPayment += o.balance;
+    o.balance = 0;
+  });
+
+  DB.save();
+  closeModal('debtSettlementModal');
+  renderDebts();
+  showToast(debtorName + ' 的欠款已全部结清！');
+}
+
+// ============ Init ============
+function init() {
+  updateSupplierSelect();
+  showWeighingUI();
+}
+
+function exportSuppliersToExcel() {
+  const activeSuppliers = DB.suppliers.filter(s => !s.archived);
+  if (activeSuppliers.length === 0) { showToast('暂无活跃供货商数据'); return; }
+
+  let csv = '\uFEFF'; // BOM for UTF-8
+
+  activeSuppliers.forEach((s, idx) => {
+    if (idx > 0) csv += '\n\n';
+
+    // Supplier header
+    csv += '供货商名称,' + esc(s.name) + '\n';
+    csv += '联系电话,' + esc(s.phone || '') + '\n';
+    csv += '备注,' + esc(s.note || '') + '\n\n';
+
+    const supplierOrders = DB.orders.filter(o => o.supplierId === s.id).sort((a, b) => b.completedAt - a.completedAt);
+
+    if (supplierOrders.length === 0) {
+      csv += '暂无交易记录\n';
+    } else {
+      // Summary
+      const totalWeight = supplierOrders.reduce((sum, o) => sum + o.totalNet, 0);
+      const totalAmount = supplierOrders.reduce((sum, o) => sum + o.totalAmount, 0);
+      const totalPaid = supplierOrders.reduce((sum, o) => sum + o.actualPayment, 0);
+      const totalBalance = supplierOrders.reduce((sum, o) => sum + o.balance, 0);
+      csv += '交易笔数,' + supplierOrders.length + '\n';
+      csv += '总销售斤数,' + totalWeight.toFixed(2) + '\n';
+      csv += '应收总额,' + totalAmount.toFixed(2) + '\n';
+      csv += '实收总额,' + totalPaid.toFixed(2) + '\n';
+      csv += '累计欠款,' + totalBalance.toFixed(2) + '\n\n';
+
+      // Detail header
+      csv += '商品名称,单价(元/斤),筐数,总净重(斤),应收金额,实收金额,欠款金额,欠款人,交易时间,欠款时间,还款时间,未付金额,筐明细(净重 斤)\n';
+
+      // Each order detail
+      supplierOrders.forEach(o => {
+        const isDebt = o.balance > 0;
+        const isWipeZero = o.wipeZero && o.wipeZeroAmount > 0;
+        const debtAmount = isDebt ? o.balance.toFixed(2) : (isWipeZero ? '抹零' + o.wipeZeroAmount.toFixed(2) : '0');
+        const repayTime = !isDebt ? formatDate(o.completedAt) : '未还款';
+        const weighDetail = o.weighings.map((w, i) => '第' + (i+1) + '筐:' + w.net.toFixed(2)).join('; ');
+        csv += [
+          esc(o.product),
+          o.price.toFixed(2),
+          o.weighings.length,
+          o.totalNet.toFixed(2),
+          o.totalAmount.toFixed(2),
+          o.actualPayment.toFixed(2),
+          debtAmount,
+          esc(o.debtorName || ''),
+          formatDate(o.completedAt),
+          isDebt ? formatDate(o.completedAt) : '',
+          repayTime,
+          isDebt ? o.balance.toFixed(2) : '0',
+          weighDetail
+        ].join(',') + '\n';
+      });
+    }
+  });
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  const now = new Date();
+  link.download = `供货商交易明细_${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}.csv`;
+  link.click();
+  URL.revokeObjectURL(link.href);
+  showToast('供货商交易明细已导出，共 ' + activeSuppliers.length + ' 个供货商');
+}
+
+function esc(str) {
+  if (!str) return '';
+  str = String(str);
+  if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+    return '"' + str.replace(/"/g, '""') + '"';
+  }
+  return str;
+}
+
+init();
+</script>
+</body>
+</html>
